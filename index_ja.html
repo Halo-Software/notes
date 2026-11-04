@@ -1,75 +1,190 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="indexx.css">
-    <script src="https://kit.fontawesome.com/d934cc086f.js" crossorigin="anonymous"></script>
-    <meta name=”viewport” content=”width=device-width, initial-scale=1”>
-    <title>Notes - Halo公式Webサイト</title>
-   <script type="module" src="https://get.microsoft.com/badge/ms-store-badge.bundled.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google AdSense Verification -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6644000083607773" crossorigin="anonymous"></script>
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Notes by Halo - 公式Webサイト">
+  <meta property="og:description" content="カラータグ、BYOSクラウドフォルダ同期、AI・MCP連携を備えた快適でミニマルなMarkdownメモ帳アプリ。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://notes.gethalo.software/index_ja.html">
+  <meta property="og:image" content="https://notes.gethalo.software/icon-192x192.png">
+
+  <title>Notes by Halo - 公式Webサイト</title>
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="icon-192x192.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Microsoft Store Bundle Badge -->
+  <script type="module" src="https://get.microsoft.com/badge/ms-store-badge.bundled.js"></script>
 </head>
-
 <body>
-	<style>.large{
-		height: 40px !important; 
-		}</style>
-    <div>
-        <div class="main">
-            <div class="main-txt-box">
-                <i>
-                    <h1 class="main-txt">
-                        Notes by Halo.</h1>
-                    <h1 class="sub">
-スクロールして知る↓
-                    </h1>
-                </i>
-            </div>
-        </div>
-        <div class="main black">
-            <h1 class="">About:</h1>
-            <h2 style="text-align: center;">「シンプル。それだけじゃない。」</h2>
-            <p>Notes by Haloは快適かつシンプルなメモ帳アプリで、主に以下の機能を特徴としています。 </p>
-            <ul>
-                <li>
-            <h2>カラータグ</h2>
-            <p>メモを色ごとに管理することで、直感的に使うことができます。</p>
-            <h5 class="quote">- 整理好きな人っているよね。</h5>
-        </li>
-        <li>
-            <h2>同期*</h2>
-            <p>Notes by Haloでは、メモを同期する際に一般的なインターネットを使ったものの他にQRコードを使ったものもご利用いただけます。</p>
-            <h5 class="quote">- 同期こそ力なり。</h5>
-        </li>
-        </ul>
-        <h6 class="addition">*付きの機能は開発中です。</h6>
-        </div>
-        <div class="main">
-            <h1 class="">How to Get?</h1>
-            <ul><li>
-            <h2>Microsoft Storeから</h2>
-            <h2>
-<ms-store-badge
-	productid="9NGZBHMCM78M"
-	window-mode="full"
-	language="en"
-	animation="on"
-	size="small">
-</ms-store-badge></h2>
-        </li>
-    <li>  <h2>Google Playから</h2>
-        <h2><a href='https://play.google.com/store/apps/details?id=com.halo_sf.android.halo_notes&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img height="80px" alt='Get it on Google Play' src='https://play.google.com/intl/ja/badges/static/images/badges/en_badge_web_generic.png' style="margin-left: -15px;"/></a></h2></li>
-    <li>
-        <h2>macOS 版（Homebrew）</h2>
-        <p>Homebrew を使ってインストール（Apple Silicon 対応）:</p>
-        <pre style="background: #eaedf1; color: #111; padding: 12px 16px; border-radius: 8px; font-family: monospace; font-size: 0.95em; line-height: 1.5; max-width: 600px; overflow-x: auto;"><code>brew tap halo-software/tap
-brew install --cask notes-by-halo</code></pre>
-        <p style="font-size: 0.85em; color: #666; margin-top: 8px;">通常はインストール後そのまま起動できます。（※万一初回起動時にブロックされた場合は、<strong>システム設定</strong> &rarr; <strong>プライバシーとセキュリティ</strong> から<strong>「このまま開く」</strong>を選択してください。）</p>
-    </li></ul>
-        </div>
-    </div>
-</body>
 
+  <!-- Menu Toggle Input (Pure CSS State) -->
+  <input type="checkbox" id="menu-toggle-input" aria-hidden="true">
+  <label for="menu-toggle-input" class="menu-btn" aria-label="メニュー開閉">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <!-- Menu Overlay -->
+  <nav class="menu-overlay" aria-label="サイトナビゲーション">
+    <ul>
+      <li><a href="#hero" onclick="document.getElementById('menu-toggle-input').checked = false;">Notes by Halo.</a></li>
+      <li><a href="#about" onclick="document.getElementById('menu-toggle-input').checked = false;">About</a></li>
+      <li><a href="#features" onclick="document.getElementById('menu-toggle-input').checked = false;">Features (機能紹介)</a></li>
+      <li><a href="#download" onclick="document.getElementById('menu-toggle-input').checked = false;">How to Get?</a></li>
+      <li><a href="policy.html">Policy</a></li>
+      <li><a href="help.html">Help</a></li>
+      <li><a href="https://gethalo.software/index_ja.html">Halo. 公式トップ</a></li>
+      <li class="lang-switch">
+        <span>言語切替: </span>
+        <a href="index.html">English Page (英語)</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Section 1: Hero -->
+  <section class="section white section-hero" id="hero">
+    <div class="section-inner hero-box">
+      <i>
+        <h1 class="hero-logo">Notes by Halo.</h1>
+      </i>
+      <h2 class="hero-sub">
+        <a href="#about">スクロールして知る &darr;</a>
+      </h2>
+    </div>
+  </section>
+
+  <!-- Section 2: About (前半 - コンセプト & カラータグ) -->
+  <section class="section black" id="about">
+    <div class="section-inner">
+      <span class="section-category white-text">About</span>
+      <h2 class="notes-catchphrase">「シンプル。それだけじゃない。」</h2>
+      <p class="notes-lead">
+        個別のMarkdownファイル保存、BYOSクラウド同期、AI・MCP連携を備えた快適でミニマルなメモ帳アプリです。
+      </p>
+
+      <ul class="notes-features">
+        <li class="notes-feature-item">
+          <h3>カラータグ</h3>
+          <p>メモを色ごとに管理することで、直感的な分類とリアルタイムな色絞り込みが可能です。</p>
+          <span class="notes-quote">- 整理好きな人っているよね。</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 3: Features (後半 - クラウド同期 & AI/MCP連携) -->
+  <section class="section black" id="features">
+    <div class="section-inner">
+      <span class="section-category white-text">Features</span>
+      <h2 class="section-title">同期とAI連携</h2>
+
+      <ul class="notes-features">
+        <li class="notes-feature-item">
+          <h3>BYOS クラウド同期</h3>
+          <p>メモは透明性の高いMarkdown（.md）ファイル保存。OneDriveやDropbox、iCloud等の同期フォルダを自由に選べます。</p>
+          <span class="notes-quote">- 自分のストレージは自分で選ぶ。</span>
+        </li>
+        <li class="notes-feature-item">
+          <h3>AI &amp; MCP 連携</h3>
+          <p>Model Context Protocol（MCP）を標準搭載。ClaudeやCursorからメモの全文検索・編集・タスク抽出が直接行えます。</p>
+          <span class="notes-quote">- AIと個人の知見をつなぐ。</span>
+        </li>
+      </ul>
+    </div>
+    <p class="section-footnote">Notes by Halo v1.1.0 &bull; Windows, Android &amp; macOS 配信中</p>
+  </section>
+
+  <!-- Section 4: How to Get? -->
+  <section class="section white" id="download">
+    <div class="section-inner">
+      <h2 class="section-title">How to Get?</h2>
+
+      <div class="products-grid">
+        <!-- Windows -->
+        <article class="product-item">
+          <div class="product-header">
+            <img class="product-icon" src="icon.png" alt="Notes by Halo アイコン">
+            <div>
+              <h3 class="product-name">Windows 版</h3>
+            </div>
+          </div>
+          <p class="product-desc">
+            Windows 10 および Windows 11 向けに Microsoft Store で配信しています。
+          </p>
+          <div class="product-actions">
+            <a href="https://www.microsoft.com/store/apps/9NGZBHMCM78M" target="_blank" rel="noopener noreferrer" class="badge-link" title="Microsoft Store から入手">
+              <ms-store-badge
+                productid="9NGZBHMCM78M"
+                window-mode="full"
+                theme="dark"
+                size="small"
+                language="ja"
+                animation="off">
+              </ms-store-badge>
+            </a>
+          </div>
+        </article>
+
+        <!-- Android -->
+        <article class="product-item">
+          <div class="product-header">
+            <img class="product-icon" src="icon.png" alt="Notes by Halo アイコン">
+            <div>
+              <h3 class="product-name">Android 版</h3>
+            </div>
+          </div>
+          <p class="product-desc">
+            Android スマートフォン・タブレット向けに Google Play で配信しています。
+          </p>
+          <div class="product-actions">
+            <a href="https://play.google.com/store/apps/details?id=com.halo_sf.android.halo_notes&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1" target="_blank" rel="noopener noreferrer" class="badge-link" title="Google Play で手に入れよう">
+              <img class="store-badge-img ja" alt="Google Play で手に入れよう" src="https://play.google.com/intl/ja/badges/static/images/badges/ja_badge_web_generic.png">
+            </a>
+          </div>
+        </article>
+
+        <!-- macOS -->
+        <article class="product-item">
+          <div class="product-header">
+            <img class="product-icon" src="icon.png" alt="Notes by Halo アイコン">
+            <div>
+              <h3 class="product-name">macOS 版（Homebrew）</h3>
+            </div>
+          </div>
+          <p class="product-desc">
+            Homebrew を使ってインストール（Apple Silicon 対応）:
+          </p>
+          <div style="margin: 0.5rem 0 1rem;">
+            <pre style="background: #111; color: #eee; padding: 10px 14px; border-radius: 8px; font-family: monospace; font-size: 0.85rem; line-height: 1.4; overflow-x: auto;"><code>brew tap halo-software/tap
+brew install --cask notes-by-halo</code></pre>
+            <span style="font-size: 0.8rem; color: #666; display: block; margin-top: 4px;">通常はインストール後そのまま起動できます。</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="footer-meta light-border">
+        <span>&copy; 2026 Halo Software. All rights reserved.</span>
+        <div class="footer-links-inline">
+          <a href="https://gethalo.software/index_ja.html">&larr; Halo. 公式トップ</a>
+          <a href="policy.html">Policy</a>
+          <a href="help.html">Help</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
 </html>
