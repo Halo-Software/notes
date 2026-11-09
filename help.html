@@ -8,7 +8,7 @@
   <!-- Google AdSense Verification -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6644000083607773" crossorigin="anonymous"></script>
 
-  <title>Help - Notes by Halo</title>
+  <title>Help & Setup Guides - Notes by Halo</title>
 
   <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-180x180.png">
   <link rel="icon" type="image/png" href="icon-192x192.png">
@@ -28,6 +28,8 @@
     <ul>
       <li><a href="index.html">Notes by Halo. (EN)</a></li>
       <li><a href="index_ja.html">Notes by Halo. (JA)</a></li>
+      <li><a href="help.html">Help &amp; Guides</a></li>
+      <li><a href="mcp.html">MCP Setup</a></li>
       <li><a href="policy.html">Policy</a></li>
       <li><a href="https://gethalo.software/">Halo. Official Top</a></li>
     </ul>
@@ -36,15 +38,99 @@
   <section class="section white">
     <div class="section-inner">
       <i>
-        <h1 class="section-title" style="font-style: italic;">Help</h1>
+        <h1 class="section-title" style="font-style: italic;">Help &amp; Guides</h1>
       </i>
 
-      <div class="doc-card">
+      <!-- Section: Cloud Sync Overview -->
+      <div class="doc-card" id="cloud-sync">
+        <h2 style="font-family: var(--font-body); font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem;">Direct Cloud Synchronization</h2>
         <p>
-          <strong>Documentation for all miscellaneous EXE return code values</strong>
+          Notes by Halo keeps your notes purely client-side without vendor lock-in. You can synchronize your markdown notes across your devices using your own private storage:
         </p>
-        <p class="doc-note">
-          (We don't have a good specification of when and what error codes are emitted, so please contact <a href="https://twitter.com/halo_software" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">@Halo_Software</a> on Twitter / X for technical support.)
+        <ul style="line-height: 1.8; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+          <li><strong>WebDAV:</strong> Synology NAS, Nextcloud, QNAP, ownCloud, or custom HTTPS WebDAV servers.</li>
+          <li><strong>Google Drive:</strong> Direct sync to your personal Google Drive account using the restricted, non-sensitive <code>drive.file</code> scope.</li>
+        </ul>
+      </div>
+
+      <!-- Section: WebDAV (Synology NAS / Nextcloud) -->
+      <div class="doc-card" id="webdav">
+        <h2 style="font-family: var(--font-body); font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem;">WebDAV Setup Guide (Synology NAS &amp; Nextcloud)</h2>
+        <p>
+          To protect your credentials, always connect over <strong>HTTPS</strong> and use a dedicated user account or app password limited to your notes directory.
+        </p>
+
+        <h3 style="font-family: var(--font-body); font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">1. Synology NAS (DSM) Setup</h3>
+        <ol style="line-height: 1.8; margin-left: 1.5rem; margin-bottom: 1.25rem;">
+          <li>Log into Synology DSM as an administrator.</li>
+          <li>Open <strong>Control Panel</strong> &gt; <strong>Shared Folder</strong> and create a shared folder named <code>NotesByHalo</code>.</li>
+          <li>Open <strong>Control Panel</strong> &gt; <strong>User &amp; Group</strong> and create a dedicated user (e.g. <code>halonotes_sync</code>).</li>
+          <li>Under <strong>Permissions</strong>, grant <strong>Read/Write</strong> only to <code>NotesByHalo</code>, and set all other folders to <strong>No Access</strong>.</li>
+          <li>Under <strong>Applications</strong>, ensure access to <strong>WebDAV Server</strong> is set to <strong>Allow</strong>.</li>
+          <li>Open DSM <strong>WebDAV Server</strong> package, check <strong>Enable HTTPS</strong> (default port: <code>5006</code>).</li>
+          <li>In Notes by Halo Settings (About), enter your WebDAV URL: <code>https://&lt;your-nas-host&gt;:5006/NotesByHalo</code>, username, and password, then click <strong>Test Connection</strong>.</li>
+        </ol>
+
+        <h3 style="font-family: var(--font-body); font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">2. Nextcloud Setup</h3>
+        <ol style="line-height: 1.8; margin-left: 1.5rem; margin-bottom: 1.25rem;">
+          <li>Log into Nextcloud, click your avatar &gt; <strong>Personal settings</strong> &gt; <strong>Security</strong>.</li>
+          <li>Under <strong>Devices &amp; client credentials</strong>, type <code>Notes by Halo</code> and click <strong>Create new app password</strong>.</li>
+          <li>Copy the generated app password.</li>
+          <li>In Notes by Halo Settings, enter your Nextcloud WebDAV URL: <code>https://&lt;your-domain&gt;/remote.php/dav/files/&lt;username&gt;/NotesByHalo</code>, your username, and the generated app password.</li>
+        </ol>
+      </div>
+
+      <!-- Section: Google Drive Direct Sync -->
+      <div class="doc-card" id="google-drive">
+        <h2 style="font-family: var(--font-body); font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem;">Google Drive Direct Sync (OAuth 2.0 PKCE)</h2>
+        <p>
+          Notes by Halo connects directly from your device to Google Drive via RFC 7636 PKCE. It uses the non-sensitive <code>https://www.googleapis.com/auth/drive.file</code> scope, meaning the app only accesses files and folders it creates (under <code>/NotesByHalo/</code>).
+        </p>
+
+        <h3 style="font-family: var(--font-body); font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">1. Creating an OAuth 2.0 Client ID (Free)</h3>
+        <ol style="line-height: 1.8; margin-left: 1.5rem; margin-bottom: 1.25rem;">
+          <li>Open <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">Google Cloud Console</a> and create a new project (e.g. <code>My HaloNotes Sync</code>).</li>
+          <li>Navigate to <strong>APIs &amp; Services</strong> &gt; <strong>Library</strong>, search for <strong>Google Drive API</strong>, and click <strong>Enable</strong>.</li>
+          <li>Navigate to <strong>APIs &amp; Services</strong> &gt; <strong>OAuth consent screen</strong>:
+            <ul style="margin-left: 1rem; margin-top: 0.25rem;">
+              <li>Select <strong>External</strong> and click <strong>Create</strong>.</li>
+              <li>Fill in App name (<code>Notes by Halo</code>) and your email address.</li>
+              <li>In the <strong>Scopes</strong> step, add <code>.../auth/drive.file</code>.</li>
+              <li>In the <strong>Test users</strong> step, add your own Google account email address.</li>
+            </ul>
+          </li>
+          <li>Navigate to <strong>APIs &amp; Services</strong> &gt; <strong>Credentials</strong> &gt; <strong>Create Credentials</strong> &gt; <strong>OAuth client ID</strong>:
+            <ul style="margin-left: 1rem; margin-top: 0.25rem;">
+              <li>Application type: <strong>Web application</strong>.</li>
+              <li>Name: <code>Notes by Halo Web Client</code>.</li>
+              <li>Authorized redirect URIs: Add both <code>https://notes.gethalo.software/about.html</code> (for Web / PWA) and <code>http://127.0.0.1:8080/about.html</code> (for PC / Electron).</li>
+            </ul>
+          </li>
+          <li>Copy your generated <strong>Client ID</strong> (format: <code>1234567890-xxx.apps.googleusercontent.com</code>).</li>
+        </ol>
+
+        <h3 style="font-family: var(--font-body); font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">2. Signing In from Desktop (PC / Electron)</h3>
+        <ol style="line-height: 1.8; margin-left: 1.5rem; margin-bottom: 1.25rem;">
+          <li>Paste your Client ID into the Settings (About) screen in Notes by Halo.</li>
+          <li>Click <strong>Sign in with Google</strong>. A browser window will open asking for your Google account consent.</li>
+          <li>After authorising in the browser, copy the authorization code (or the full redirect URL from the address bar) and paste it into the <strong>Authorization Code</strong> input in the app.</li>
+          <li>Click <strong>Complete Login</strong>. The app will securely exchange tokens and begin sync.</li>
+        </ol>
+
+        <h3 style="font-family: var(--font-body); font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">3. Importing Existing Markdown Files via Google Picker</h3>
+        <p>
+          Because the app strictly uses the <code>drive.file</code> scope for your privacy, it cannot see external files placed in your Drive by other tools by default.
+        </p>
+        <p>
+          To import existing markdown notes into Notes by Halo, click <strong>Import from Drive</strong> in the Google Drive settings card. Select your <code>.md</code> or <code>.txt</code> files in the official Google file picker dialog to grant access and import them immediately into your local notes collection.
+        </p>
+      </div>
+
+      <!-- Section: Troubleshooting -->
+      <div class="doc-card" id="troubleshooting">
+        <h2 style="font-family: var(--font-body); font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem;">Troubleshooting &amp; Support</h2>
+        <p>
+          For additional technical support, feature questions, or issue reports, reach out to <a href="https://twitter.com/halo_software" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">@Halo_Software</a> on Twitter / X or open an issue on our GitHub repository.
         </p>
       </div>
 
